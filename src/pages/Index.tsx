@@ -4,131 +4,135 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Camera, 
-  Heart, 
-  Users, 
-  Briefcase, 
-  Baby, 
-  Shirt, 
-  Package,
-  Star,
-  Phone,
-  Mail,
-  MapPin,
-  Instagram,
-  Facebook,
-  Menu,
-  X,
-  Send
-} from 'lucide-react';
+import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send } from 'lucide-react';
 
 // Import images
 import heroImage from '@/assets/hero-photographer.jpg';
 import weddingSample from '@/assets/wedding-sample.jpg';
 import corporateSample from '@/assets/corporate-sample.jpg';
 import productSample from '@/assets/product-sample.jpg';
-
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const services = [
-    { icon: Heart, title: 'Wedding Photography', description: 'Capturing your special day with elegance and emotion' },
-    { icon: Heart, title: 'Pre-Wedding Shoots', description: 'Romantic sessions that tell your love story' },
-    { icon: Users, title: 'Birthday Photography', description: 'Making birthday celebrations unforgettable' },
-    { icon: Briefcase, title: 'Corporate Events', description: 'Professional coverage for business occasions' },
-    { icon: Baby, title: 'Maternity Shoots', description: 'Beautiful moments of expecting mothers' },
-    { icon: Shirt, title: 'Fashion Photography', description: 'High-end fashion and portrait sessions' },
-    { icon: Package, title: 'Product Photography', description: 'Stunning commercial product imagery' },
-  ];
-
-  const portfolioItems = [
-    { id: 1, category: 'Wedding', image: weddingSample, title: 'Elegant Wedding' },
-    { id: 2, category: 'Corporate', image: corporateSample, title: 'Executive Portrait' },
-    { id: 3, category: 'Product', image: productSample, title: 'Luxury Product' },
-    { id: 4, category: 'Wedding', image: weddingSample, title: 'Romantic Ceremony' },
-    { id: 5, category: 'Corporate', image: corporateSample, title: 'Business Headshot' },
-    { id: 6, category: 'Product', image: productSample, title: 'Premium Showcase' },
-  ];
-
-  const testimonials = [
-    {
-      name: 'Sarah & Michael',
-      text: 'PixelCraft Studio captured our wedding day perfectly. Every moment was beautifully preserved.',
-      rating: 5,
-      category: 'Wedding'
-    },
-    {
-      name: 'Jennifer Tech Corp',
-      text: 'Professional, creative, and delivered exceptional corporate headshots for our entire team.',
-      rating: 5,
-      category: 'Corporate'
-    },
-    {
-      name: 'Emma Johnson',
-      text: 'The maternity shoot was magical. They made me feel comfortable and the photos are stunning.',
-      rating: 5,
-      category: 'Maternity'
-    }
-  ];
-
-  const pricingPlans = [
-    {
-      name: 'Starter',
-      price: '$299',
-      features: ['2-hour session', '25 edited photos', 'Online gallery', 'Basic retouching'],
-      popular: false
-    },
-    {
-      name: 'Premium',
-      price: '$599',
-      features: ['4-hour session', '75 edited photos', 'Online gallery', 'Advanced retouching', 'Print release'],
-      popular: true
-    },
-    {
-      name: 'Elite',
-      price: '$999',
-      features: ['Full day coverage', '150+ edited photos', 'Online gallery', 'Premium retouching', 'Print release', 'Second photographer'],
-      popular: false
-    }
-  ];
-
-  const filteredPortfolio = selectedCategory === 'All' 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === selectedCategory);
-
+  const services = [{
+    icon: Heart,
+    title: 'Wedding Photography',
+    description: 'Capturing your special day with elegance and emotion'
+  }, {
+    icon: Heart,
+    title: 'Pre-Wedding Shoots',
+    description: 'Romantic sessions that tell your love story'
+  }, {
+    icon: Users,
+    title: 'Birthday Photography',
+    description: 'Making birthday celebrations unforgettable'
+  }, {
+    icon: Briefcase,
+    title: 'Corporate Events',
+    description: 'Professional coverage for business occasions'
+  }, {
+    icon: Baby,
+    title: 'Maternity Shoots',
+    description: 'Beautiful moments of expecting mothers'
+  }, {
+    icon: Shirt,
+    title: 'Fashion Photography',
+    description: 'High-end fashion and portrait sessions'
+  }, {
+    icon: Package,
+    title: 'Product Photography',
+    description: 'Stunning commercial product imagery'
+  }];
+  const portfolioItems = [{
+    id: 1,
+    category: 'Wedding',
+    image: weddingSample,
+    title: 'Elegant Wedding'
+  }, {
+    id: 2,
+    category: 'Corporate',
+    image: corporateSample,
+    title: 'Executive Portrait'
+  }, {
+    id: 3,
+    category: 'Product',
+    image: productSample,
+    title: 'Luxury Product'
+  }, {
+    id: 4,
+    category: 'Wedding',
+    image: weddingSample,
+    title: 'Romantic Ceremony'
+  }, {
+    id: 5,
+    category: 'Corporate',
+    image: corporateSample,
+    title: 'Business Headshot'
+  }, {
+    id: 6,
+    category: 'Product',
+    image: productSample,
+    title: 'Premium Showcase'
+  }];
+  const testimonials = [{
+    name: 'Sarah & Michael',
+    text: 'PixelCraft Studio captured our wedding day perfectly. Every moment was beautifully preserved.',
+    rating: 5,
+    category: 'Wedding'
+  }, {
+    name: 'Jennifer Tech Corp',
+    text: 'Professional, creative, and delivered exceptional corporate headshots for our entire team.',
+    rating: 5,
+    category: 'Corporate'
+  }, {
+    name: 'Emma Johnson',
+    text: 'The maternity shoot was magical. They made me feel comfortable and the photos are stunning.',
+    rating: 5,
+    category: 'Maternity'
+  }];
+  const pricingPlans = [{
+    name: 'Starter',
+    price: '$299',
+    features: ['2-hour session', '25 edited photos', 'Online gallery', 'Basic retouching'],
+    popular: false
+  }, {
+    name: 'Premium',
+    price: '$599',
+    features: ['4-hour session', '75 edited photos', 'Online gallery', 'Advanced retouching', 'Print release'],
+    popular: true
+  }, {
+    name: 'Elite',
+    price: '$999',
+    features: ['Full day coverage', '150+ edited photos', 'Online gallery', 'Premium retouching', 'Print release', 'Second photographer'],
+    popular: false
+  }];
+  const filteredPortfolio = selectedCategory === 'All' ? portfolioItems : portfolioItems.filter(item => item.category === selectedCategory);
   useEffect(() => {
     // Animate elements on scroll
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in');
         }
       });
     }, observerOptions);
-
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    animatedElements.forEach((el) => observer.observe(el));
-
+    animatedElements.forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('contact')?.scrollIntoView({
+      behavior: 'smooth'
+    });
   };
-
   const openWhatsApp = () => {
     window.open('https://wa.me/1234567890?text=Hi! I would like to book a photography session.', '_blank');
   };
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="container mx-auto px-4 py-4">
@@ -139,15 +143,9 @@ const Index = () => {
             </div>
             
             <nav className="hidden md:flex space-x-8">
-              {['About', 'Services', 'Portfolio', 'Pricing', 'Contact'].map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-foreground hover:text-gold transition-colors duration-300"
-                >
+              {['About', 'Services', 'Portfolio', 'Pricing', 'Contact'].map(item => <a key={item} href={`#${item.toLowerCase()}`} className="text-foreground hover:text-gold transition-colors duration-300">
                   {item}
-                </a>
-              ))}
+                </a>)}
             </nav>
 
             <div className="hidden md:flex items-center space-x-4">
@@ -162,30 +160,17 @@ const Index = () => {
               </Button>
             </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </Button>
           </div>
 
           {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-border">
+          {isMenuOpen && <div className="md:hidden mt-4 pb-4 border-t border-border">
               <nav className="flex flex-col space-y-3 pt-4">
-                {['About', 'Services', 'Portfolio', 'Pricing', 'Contact'].map((item) => (
-                  <a 
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-foreground hover:text-gold transition-colors duration-300"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+                {['About', 'Services', 'Portfolio', 'Pricing', 'Contact'].map(item => <a key={item} href={`#${item.toLowerCase()}`} className="text-foreground hover:text-gold transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
                     {item}
-                  </a>
-                ))}
+                  </a>)}
                 <div className="flex space-x-2 pt-2">
                   <Button variant="outline" size="sm">
                     <Instagram className="w-4 h-4" />
@@ -198,19 +183,14 @@ const Index = () => {
                   </Button>
                 </div>
               </nav>
-            </div>
-          )}
+            </div>}
         </div>
       </header>
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src={heroImage} 
-            alt="Professional photographer in action"
-            className="w-full h-full object-cover"
-          />
+          <img src={heroImage} alt="Professional photographer in action" className="w-full h-full object-cover" />
           <div className="absolute inset-0 hero-overlay"></div>
         </div>
         
@@ -226,7 +206,7 @@ const Index = () => {
             <Button onClick={scrollToContact} size="lg" className="btn-gold">
               Book a Shoot
             </Button>
-            <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-primary">
+            <Button variant="outline" size="lg" className="border-white hover:bg-white text-zinc-950">
               View Portfolio
             </Button>
           </div>
@@ -263,8 +243,7 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
+            {services.map((service, index) => <Card key={index} className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
                     <service.icon className="w-8 h-8 text-gold" />
@@ -272,8 +251,7 @@ const Index = () => {
                   <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
                   <p className="text-muted-foreground">{service.description}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -288,28 +266,16 @@ const Index = () => {
             </p>
             
             <div className="flex flex-wrap justify-center gap-3">
-              {['All', 'Wedding', 'Corporate', 'Product'].map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
-                  onClick={() => setSelectedCategory(category)}
-                  className={selectedCategory === category ? "btn-gold" : ""}
-                >
+              {['All', 'Wedding', 'Corporate', 'Product'].map(category => <Button key={category} variant={selectedCategory === category ? "default" : "outline"} onClick={() => setSelectedCategory(category)} className={selectedCategory === category ? "btn-gold" : ""}>
                   {category}
-                </Button>
-              ))}
+                </Button>)}
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPortfolio.map((item) => (
-              <div key={item.id} className="group cursor-pointer animate-on-scroll">
+            {filteredPortfolio.map(item => <div key={item.id} className="group cursor-pointer animate-on-scroll">
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                  <img src={item.image} alt={item.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="text-white text-center">
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
@@ -317,8 +283,7 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -334,13 +299,10 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="animate-on-scroll">
+            {testimonials.map((testimonial, index) => <Card key={index} className="animate-on-scroll">
                 <CardContent className="p-8 text-center">
                   <div className="flex justify-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-gold text-gold" />
-                    ))}
+                    {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-5 h-5 fill-gold text-gold" />)}
                   </div>
                   <p className="text-muted-foreground mb-6 italic">"{testimonial.text}"</p>
                   <div>
@@ -348,8 +310,7 @@ const Index = () => {
                     <p className="text-sm text-muted-foreground">{testimonial.category} Client</p>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -365,31 +326,21 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {pricingPlans.map((plan, index) => (
-              <Card key={index} className={`relative animate-on-scroll ${plan.popular ? 'ring-2 ring-gold shadow-xl scale-105' : ''}`}>
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+            {pricingPlans.map((plan, index) => <Card key={index} className={`relative animate-on-scroll ${plan.popular ? 'ring-2 ring-gold shadow-xl scale-105' : ''}`}>
+                {plan.popular && <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <Badge className="bg-gold text-primary px-4 py-1">Most Popular</Badge>
-                  </div>
-                )}
+                  </div>}
                 <CardContent className="p-8 text-center">
                   <h3 className="text-2xl font-bold mb-4">{plan.name}</h3>
                   <div className="text-4xl font-bold text-gold mb-6">{plan.price}</div>
                   <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, i) => (
-                      <li key={i} className="text-muted-foreground">{feature}</li>
-                    ))}
+                    {plan.features.map((feature, i) => <li key={i} className="text-muted-foreground">{feature}</li>)}
                   </ul>
-                  <Button 
-                    onClick={openWhatsApp}
-                    className={plan.popular ? 'btn-gold w-full' : 'w-full'}
-                    variant={plan.popular ? 'default' : 'outline'}
-                  >
+                  <Button onClick={openWhatsApp} className={plan.popular ? 'btn-gold w-full' : 'w-full'} variant={plan.popular ? 'default' : 'outline'}>
                     Request Booking
                   </Button>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -524,8 +475,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
