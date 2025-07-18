@@ -430,10 +430,10 @@ const Index = () => {
                 Professional photography services capturing life's most precious moments.
               </p>
               <div className="flex space-x-3">
-                <Button variant="outline" size="sm" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button variant="outline" size="sm" className="border-primary-foreground/20 text-zinc-950 bg-slate-50">
                   <Instagram className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="sm" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button variant="outline" size="sm" className="border-primary-foreground/20 hover:bg-primary-foreground text-zinc-950">
                   <Facebook className="w-4 h-4" />
                 </Button>
               </div>
