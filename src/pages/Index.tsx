@@ -23,10 +23,6 @@ const Index = () => {
     title: 'Pre-Wedding Shoots',
     description: 'Romantic sessions that tell your love story'
   }, {
-    icon: Users,
-    title: 'Birthday Photography',
-    description: 'Making birthday celebrations unforgettable'
-  }, {
     icon: Briefcase,
     title: 'Corporate Events',
     description: 'Professional coverage for business occasions'
@@ -206,7 +202,7 @@ const Index = () => {
             <Button onClick={scrollToContact} size="lg" className="btn-gold">
               Book a Shoot
             </Button>
-            <Button variant="outline" size="lg" className="border-white hover:bg-white text-zinc-950">
+            <Button variant="outline" size="lg" className="border-white hover:bg-white hover:text-primary text-white">
               View Portfolio
             </Button>
           </div>
@@ -430,10 +426,10 @@ const Index = () => {
                 Professional photography services capturing life's most precious moments.
               </p>
               <div className="flex space-x-3">
-                <Button variant="outline" size="sm" className="border-primary-foreground/20 text-zinc-950 bg-slate-50">
+                <Button variant="outline" size="sm" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                   <Instagram className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="sm" className="border-primary-foreground/20 hover:bg-primary-foreground text-zinc-950">
+                <Button variant="outline" size="sm" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                   <Facebook className="w-4 h-4" />
                 </Button>
               </div>
