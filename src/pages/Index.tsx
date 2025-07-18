@@ -108,15 +108,31 @@ const Index = () => {
     category: 'Maternity',
     image: client3
   }];
-
-  const instagramFeed = [
-    { id: 1, image: instagram1, alt: 'Photography work sample 1' },
-    { id: 2, image: instagram2, alt: 'Photography work sample 2' },
-    { id: 3, image: instagram3, alt: 'Photography work sample 3' },
-    { id: 4, image: instagram4, alt: 'Photography work sample 4' },
-    { id: 5, image: instagram5, alt: 'Photography work sample 5' },
-    { id: 6, image: instagram6, alt: 'Photography work sample 6' }
-  ];
+  const instagramFeed = [{
+    id: 1,
+    image: instagram1,
+    alt: 'Photography work sample 1'
+  }, {
+    id: 2,
+    image: instagram2,
+    alt: 'Photography work sample 2'
+  }, {
+    id: 3,
+    image: instagram3,
+    alt: 'Photography work sample 3'
+  }, {
+    id: 4,
+    image: instagram4,
+    alt: 'Photography work sample 4'
+  }, {
+    id: 5,
+    image: instagram5,
+    alt: 'Photography work sample 5'
+  }, {
+    id: 6,
+    image: instagram6,
+    alt: 'Photography work sample 6'
+  }];
   const pricingPlans = [{
     name: 'Starter',
     price: '$299',
@@ -140,30 +156,45 @@ const Index = () => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
+          return {
+            ...prev,
+            seconds: prev.seconds - 1
+          };
         } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+          return {
+            ...prev,
+            minutes: prev.minutes - 1,
+            seconds: 59
+          };
         } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+          return {
+            ...prev,
+            hours: prev.hours - 1,
+            minutes: 59,
+            seconds: 59
+          };
         } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
+          return {
+            ...prev,
+            days: prev.days - 1,
+            hours: 23,
+            minutes: 59,
+            seconds: 59
+          };
         }
         return prev;
       });
     }, 1000);
-
     return () => clearInterval(timer);
   }, []);
 
   // Testimonial carousel effect
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, [testimonials.length]);
-
   useEffect(() => {
     // Animate elements on scroll
     const observerOptions = {
@@ -186,17 +217,14 @@ const Index = () => {
       behavior: 'smooth'
     });
   };
-
   const scrollToPortfolio = () => {
     document.getElementById('portfolio')?.scrollIntoView({
       behavior: 'smooth'
     });
   };
-
   const openWhatsApp = () => {
     window.open('https://wa.me/1234567890?text=Hi! I would like to book a photography session.', '_blank');
   };
-
   const openInstagram = () => {
     window.open('https://instagram.com/pixelcraftstudio', '_blank');
   };
@@ -274,7 +302,7 @@ const Index = () => {
             <Button onClick={scrollToContact} size="lg" className="btn-gold">
               Book a Shoot
             </Button>
-            <Button onClick={scrollToPortfolio} variant="outline" size="lg" className="border-white hover:bg-white hover:text-primary text-white">
+            <Button onClick={scrollToPortfolio} variant="outline" size="lg" className="border-white bg-zinc-50 text-zinc-950">
               View Portfolio
             </Button>
           </div>
@@ -344,8 +372,7 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPortfolio.map(item => (
-              <div key={item.id} className="portfolio-item group cursor-pointer animate-on-scroll" onClick={() => setLightboxImage(item.image)}>
+            {filteredPortfolio.map(item => <div key={item.id} className="portfolio-item group cursor-pointer animate-on-scroll" onClick={() => setLightboxImage(item.image)}>
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
                   <img src={item.image} alt={item.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" />
                   <div className="portfolio-overlay">
@@ -355,8 +382,7 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -410,24 +436,16 @@ const Index = () => {
 
           <div className="max-w-4xl mx-auto relative">
             <div className="overflow-hidden">
-              <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
-              >
-                {testimonials.map((testimonial, index) => (
-                  <Card key={index} className="min-w-full animate-slide-up">
+              <div className="flex transition-transform duration-500 ease-in-out" style={{
+              transform: `translateX(-${currentTestimonial * 100}%)`
+            }}>
+                {testimonials.map((testimonial, index) => <Card key={index} className="min-w-full animate-slide-up">
                     <CardContent className="p-12 text-center">
                       <div className="flex justify-center mb-6">
-                        <img 
-                          src={testimonial.image} 
-                          alt={testimonial.name}
-                          className="w-20 h-20 rounded-full object-cover border-4 border-gold"
-                        />
+                        <img src={testimonial.image} alt={testimonial.name} className="w-20 h-20 rounded-full object-cover border-4 border-gold" />
                       </div>
                       <div className="flex justify-center mb-6">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-6 h-6 fill-gold text-gold" />
-                        ))}
+                        {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-6 h-6 fill-gold text-gold" />)}
                       </div>
                       <p className="text-xl text-muted-foreground mb-8 italic leading-relaxed">
                         "{testimonial.text}"
@@ -437,21 +455,12 @@ const Index = () => {
                         <p className="text-muted-foreground">{testimonial.category} Client</p>
                       </div>
                     </CardContent>
-                  </Card>
-                ))}
+                  </Card>)}
               </div>
             </div>
             
             <div className="flex justify-center mt-8 space-x-3">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    currentTestimonial === index ? 'bg-gold' : 'bg-muted'
-                  }`}
-                />
-              ))}
+              {testimonials.map((_, index) => <button key={index} onClick={() => setCurrentTestimonial(index)} className={`w-3 h-3 rounded-full transition-colors duration-300 ${currentTestimonial === index ? 'bg-gold' : 'bg-muted'}`} />)}
             </div>
           </div>
         </div>
@@ -574,24 +583,14 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {instagramFeed.map((item) => (
-              <div 
-                key={item.id} 
-                className="group cursor-pointer animate-on-scroll hover-scale"
-                onClick={() => window.open('https://instagram.com/pixelcraftstudio', '_blank')}
-              >
+            {instagramFeed.map(item => <div key={item.id} className="group cursor-pointer animate-on-scroll hover-scale" onClick={() => window.open('https://instagram.com/pixelcraftstudio', '_blank')}>
                 <div className="relative overflow-hidden rounded-lg shadow-lg aspect-square">
-                  <img 
-                    src={item.image} 
-                    alt={item.alt} 
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
-                  />
+                  <img src={item.image} alt={item.alt} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <Instagram className="w-8 h-8 text-white" />
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -605,11 +604,7 @@ const Index = () => {
               Subscribe to our newsletter for photography tips, event planning insights, and exclusive discounts.
             </p>
             <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input 
-                placeholder="Enter your email" 
-                type="email" 
-                className="bg-primary-foreground text-primary flex-1"
-              />
+              <Input placeholder="Enter your email" type="email" className="bg-primary-foreground text-primary flex-1" />
               <Button type="submit" className="btn-gold">
                 Subscribe
               </Button>
@@ -693,23 +688,14 @@ const Index = () => {
       </button>
 
       {/* Lightbox */}
-      {lightboxImage && (
-        <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <img 
-              src={lightboxImage} 
-              alt="Portfolio item" 
-              className="max-w-full max-h-full object-contain rounded-lg"
-            />
-            <button 
-              onClick={() => setLightboxImage(null)}
-              className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
-            >
+      {lightboxImage && <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
+          <div className="lightbox-content" onClick={e => e.stopPropagation()}>
+            <img src={lightboxImage} alt="Portfolio item" className="max-w-full max-h-full object-contain rounded-lg" />
+            <button onClick={() => setLightboxImage(null)} className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors">
               <X className="w-6 h-6" />
             </button>
           </div>
-        </div>
-      )}
+        </div>}
     </div>;
 };
 export default Index;
