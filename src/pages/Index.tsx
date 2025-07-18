@@ -4,16 +4,35 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send } from 'lucide-react';
+import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send, MessageCircle, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 
 // Import images
 import heroImage from '@/assets/hero-photographer.jpg';
 import weddingSample from '@/assets/wedding-sample.jpg';
 import corporateSample from '@/assets/corporate-sample.jpg';
 import productSample from '@/assets/product-sample.jpg';
+
+// Import new images
+import instagram1 from '@/assets/instagram-1.jpg';
+import instagram2 from '@/assets/instagram-2.jpg';
+import instagram3 from '@/assets/instagram-3.jpg';
+import instagram4 from '@/assets/instagram-4.jpg';
+import instagram5 from '@/assets/instagram-5.jpg';
+import instagram6 from '@/assets/instagram-6.jpg';
+import client1 from '@/assets/client-1.jpg';
+import client2 from '@/assets/client-2.jpg';
+import client3 from '@/assets/client-3.jpg';
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 30,
+    hours: 12,
+    minutes: 45,
+    seconds: 30
+  });
   const services = [{
     icon: Heart,
     title: 'Wedding Photography',
@@ -72,20 +91,32 @@ const Index = () => {
   }];
   const testimonials = [{
     name: 'Sarah & Michael',
-    text: 'PixelCraft Studio captured our wedding day perfectly. Every moment was beautifully preserved.',
+    text: 'PixelCraft Studio captured our wedding day perfectly. Every moment was beautifully preserved with such attention to detail.',
     rating: 5,
-    category: 'Wedding'
+    category: 'Wedding',
+    image: client1
   }, {
-    name: 'Jennifer Tech Corp',
-    text: 'Professional, creative, and delivered exceptional corporate headshots for our entire team.',
+    name: 'Jennifer Martinez',
+    text: 'Professional, creative, and delivered exceptional corporate headshots for our entire team. Highly recommended!',
     rating: 5,
-    category: 'Corporate'
+    category: 'Corporate',
+    image: client2
   }, {
     name: 'Emma Johnson',
-    text: 'The maternity shoot was magical. They made me feel comfortable and the photos are stunning.',
+    text: 'The maternity shoot was magical. They made me feel comfortable and the photos are absolutely stunning.',
     rating: 5,
-    category: 'Maternity'
+    category: 'Maternity',
+    image: client3
   }];
+
+  const instagramFeed = [
+    { id: 1, image: instagram1, alt: 'Photography work sample 1' },
+    { id: 2, image: instagram2, alt: 'Photography work sample 2' },
+    { id: 3, image: instagram3, alt: 'Photography work sample 3' },
+    { id: 4, image: instagram4, alt: 'Photography work sample 4' },
+    { id: 5, image: instagram5, alt: 'Photography work sample 5' },
+    { id: 6, image: instagram6, alt: 'Photography work sample 6' }
+  ];
   const pricingPlans = [{
     name: 'Starter',
     price: '$299',
@@ -103,6 +134,36 @@ const Index = () => {
     popular: false
   }];
   const filteredPortfolio = selectedCategory === 'All' ? portfolioItems : portfolioItems.filter(item => item.category === selectedCategory);
+
+  // Countdown timer effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 };
+        } else if (prev.minutes > 0) {
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        } else if (prev.hours > 0) {
+          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        } else if (prev.days > 0) {
+          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
+        }
+        return prev;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Testimonial carousel effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
+
   useEffect(() => {
     // Animate elements on scroll
     const observerOptions = {
@@ -125,8 +186,19 @@ const Index = () => {
       behavior: 'smooth'
     });
   };
+
+  const scrollToPortfolio = () => {
+    document.getElementById('portfolio')?.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
   const openWhatsApp = () => {
     window.open('https://wa.me/1234567890?text=Hi! I would like to book a photography session.', '_blank');
+  };
+
+  const openInstagram = () => {
+    window.open('https://instagram.com/pixelcraftstudio', '_blank');
   };
   return <div className="min-h-screen bg-background">
       {/* Header */}
@@ -202,10 +274,13 @@ const Index = () => {
             <Button onClick={scrollToContact} size="lg" className="btn-gold">
               Book a Shoot
             </Button>
-            <Button variant="outline" size="lg" className="border-white hover:bg-white hover:text-primary text-white">
+            <Button onClick={scrollToPortfolio} variant="outline" size="lg" className="border-white hover:bg-white hover:text-primary text-white">
               View Portfolio
             </Button>
           </div>
+          <p className="text-lg mt-6 animate-fade-in animate-delay-400 text-gold">
+            Book now to lock in availability for your event!
+          </p>
         </div>
       </section>
 
@@ -269,17 +344,56 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPortfolio.map(item => <div key={item.id} className="group cursor-pointer animate-on-scroll">
+            {filteredPortfolio.map(item => (
+              <div key={item.id} className="portfolio-item group cursor-pointer animate-on-scroll" onClick={() => setLightboxImage(item.image)}>
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
                   <img src={item.image} alt={item.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="portfolio-overlay">
                     <div className="text-white text-center">
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                      <Badge variant="secondary">{item.category}</Badge>
+                      <Badge variant="secondary" className="bg-gold text-primary">{item.category}</Badge>
                     </div>
                   </div>
                 </div>
-              </div>)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Offer Banner */}
+      <section className="py-20 bg-gradient-to-r from-gold/10 to-gold-dark/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Spring Wedding Special</h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Book your spring wedding photography package and save 20% on our Premium package. 
+              Limited time offer with exclusive perks!
+            </p>
+            
+            <div className="flex justify-center items-center space-x-6 mb-8">
+              <div className="countdown-item">
+                <div className="text-2xl font-bold">{timeLeft.days}</div>
+                <div className="text-sm">Days</div>
+              </div>
+              <div className="countdown-item">
+                <div className="text-2xl font-bold">{timeLeft.hours}</div>
+                <div className="text-sm">Hours</div>
+              </div>
+              <div className="countdown-item">
+                <div className="text-2xl font-bold">{timeLeft.minutes}</div>
+                <div className="text-sm">Min</div>
+              </div>
+              <div className="countdown-item">
+                <div className="text-2xl font-bold">{timeLeft.seconds}</div>
+                <div className="text-sm">Sec</div>
+              </div>
+            </div>
+
+            <Button onClick={openWhatsApp} size="lg" className="btn-gold">
+              <Clock className="w-5 h-5 mr-2" />
+              Book Spring Special
+            </Button>
           </div>
         </div>
       </section>
@@ -294,19 +408,51 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => <Card key={index} className="animate-on-scroll">
-                <CardContent className="p-8 text-center">
-                  <div className="flex justify-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-5 h-5 fill-gold text-gold" />)}
-                  </div>
-                  <p className="text-muted-foreground mb-6 italic">"{testimonial.text}"</p>
-                  <div>
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.category} Client</p>
-                  </div>
-                </CardContent>
-              </Card>)}
+          <div className="max-w-4xl mx-auto relative">
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <Card key={index} className="min-w-full animate-slide-up">
+                    <CardContent className="p-12 text-center">
+                      <div className="flex justify-center mb-6">
+                        <img 
+                          src={testimonial.image} 
+                          alt={testimonial.name}
+                          className="w-20 h-20 rounded-full object-cover border-4 border-gold"
+                        />
+                      </div>
+                      <div className="flex justify-center mb-6">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-6 h-6 fill-gold text-gold" />
+                        ))}
+                      </div>
+                      <p className="text-xl text-muted-foreground mb-8 italic leading-relaxed">
+                        "{testimonial.text}"
+                      </p>
+                      <div>
+                        <p className="text-lg font-semibold">{testimonial.name}</p>
+                        <p className="text-muted-foreground">{testimonial.category} Client</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex justify-center mt-8 space-x-3">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                    currentTestimonial === index ? 'bg-gold' : 'bg-muted'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -412,6 +558,65 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Instagram Feed Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Follow Our Journey</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              Get inspired by our latest work on Instagram
+            </p>
+            <Button onClick={openInstagram} variant="outline" className="border-gold text-gold hover:bg-gold hover:text-primary">
+              <Instagram className="w-5 h-5 mr-2" />
+              @PixelCraftStudio
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {instagramFeed.map((item) => (
+              <div 
+                key={item.id} 
+                className="group cursor-pointer animate-on-scroll hover-scale"
+                onClick={() => window.open('https://instagram.com/pixelcraftstudio', '_blank')}
+              >
+                <div className="relative overflow-hidden rounded-lg shadow-lg aspect-square">
+                  <img 
+                    src={item.image} 
+                    alt={item.alt} 
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <Instagram className="w-8 h-8 text-white" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center animate-on-scroll">
+            <h3 className="text-3xl font-serif font-bold mb-4">Get Event Tips & Special Offers</h3>
+            <p className="text-primary-foreground/80 mb-8">
+              Subscribe to our newsletter for photography tips, event planning insights, and exclusive discounts.
+            </p>
+            <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <Input 
+                placeholder="Enter your email" 
+                type="email" 
+                className="bg-primary-foreground text-primary flex-1"
+              />
+              <Button type="submit" className="btn-gold">
+                Subscribe
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-12">
@@ -423,7 +628,7 @@ const Index = () => {
                 <span className="text-gold ml-2">Studio</span>
               </div>
               <p className="text-primary-foreground/80 mb-4">
-                Professional photography services capturing life's most precious moments.
+                Professional photography services capturing life's most precious moments with artistry and passion.
               </p>
               <div className="flex space-x-3">
                 <Button variant="outline" size="sm" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground hover:text-primary">
@@ -442,6 +647,8 @@ const Index = () => {
                 <li>Corporate Events</li>
                 <li>Portrait Sessions</li>
                 <li>Product Photography</li>
+                <li>Fashion Photography</li>
+                <li>Maternity Shoots</li>
               </ul>
             </div>
 
@@ -458,19 +665,51 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">Contact Info</h4>
               <ul className="space-y-2 text-primary-foreground/80">
-                <li>+1 (555) 123-4567</li>
-                <li>hello@pixelcraftstudio.com</li>
-                <li>123 Photography Lane</li>
-                <li>Creative District</li>
+                <li className="flex items-center">
+                  <Phone className="w-4 h-4 mr-2 text-gold" />
+                  +1 (555) 123-4567
+                </li>
+                <li className="flex items-center">
+                  <Mail className="w-4 h-4 mr-2 text-gold" />
+                  hello@pixelcraftstudio.com
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="w-4 h-4 mr-2 text-gold" />
+                  123 Photography Lane, Creative District
+                </li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/60">
-            <p>&copy; 2024 PixelCraft Studio. All rights reserved.</p>
+            <p>&copy; 2024 PixelCraft Studio. All rights reserved. | Crafted with ❤️ for capturing memories</p>
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <button onClick={openWhatsApp} className="whatsapp-float" aria-label="Contact us on WhatsApp">
+        <MessageCircle className="w-7 h-7" />
+      </button>
+
+      {/* Lightbox */}
+      {lightboxImage && (
+        <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img 
+              src={lightboxImage} 
+              alt="Portfolio item" 
+              className="max-w-full max-h-full object-contain rounded-lg"
+            />
+            <button 
+              onClick={() => setLightboxImage(null)}
+              className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>;
 };
 export default Index;

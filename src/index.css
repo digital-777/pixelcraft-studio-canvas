@@ -140,11 +140,15 @@ All colors MUST be HSL for consistent theming.
 }
 
 @layer components {
-  /* Gold button variant */
+  /* Gold button variant with glow effect */
   .btn-gold {
     @apply bg-gradient-to-r from-gold to-gold-dark text-primary font-medium px-6 py-3 rounded-lg;
     @apply hover:shadow-lg hover:scale-105 transition-all duration-300;
     box-shadow: var(--shadow-gold);
+  }
+
+  .btn-gold:hover {
+    box-shadow: 0 0 20px rgba(218,165,32,0.4), 0 4px 20px rgba(218,165,32,0.3);
   }
 
   /* Hero section styling */
@@ -164,10 +168,52 @@ All colors MUST be HSL for consistent theming.
     transform: translateY(30px);
   }
 
+  .animate-zoom-in {
+    animation: zoomIn 0.3s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
   /* Scroll animations with delays */
   .animate-delay-100 { animation-delay: 0.1s; }
   .animate-delay-200 { animation-delay: 0.2s; }
   .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
+  .animate-delay-500 { animation-delay: 0.5s; }
+
+  /* Portfolio hover effects */
+  .portfolio-overlay {
+    @apply absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300;
+    @apply flex items-center justify-center;
+  }
+
+  .portfolio-item:hover .portfolio-overlay {
+    @apply opacity-100;
+  }
+
+  /* WhatsApp floating button */
+  .whatsapp-float {
+    @apply fixed bottom-6 right-6 z-50;
+    @apply w-14 h-14 bg-green-500 rounded-full shadow-lg;
+    @apply flex items-center justify-center text-white;
+    @apply hover:bg-green-600 transition-all duration-300;
+    @apply animate-bounce hover:animate-none;
+  }
+
+  /* Lightbox */
+  .lightbox-overlay {
+    @apply fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4;
+    @apply animate-fade-in;
+  }
+
+  .lightbox-content {
+    @apply max-w-4xl max-h-full animate-zoom-in;
+  }
+
+  /* Countdown timer */
+  .countdown-item {
+    @apply bg-primary text-primary-foreground rounded-lg p-3 min-w-16 text-center;
+  }
 }
 
 @keyframes fadeIn {
@@ -180,5 +226,12 @@ All colors MUST be HSL for consistent theming.
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
