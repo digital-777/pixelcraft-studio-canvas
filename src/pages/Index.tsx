@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -383,6 +384,15 @@ const Index = () => {
                   </div>
                 </div>
               </div>)}
+          </div>
+
+          {/* More Portfolio Button */}
+          <div className="text-center mt-12 animate-on-scroll">
+            <Link to="/portfolio">
+              <Button variant="outline" size="lg" className="border-gold text-gold hover:bg-gold hover:text-primary">
+                View Complete Portfolio
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
