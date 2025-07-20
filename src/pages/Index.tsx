@@ -198,12 +198,27 @@ const Index = () => {
     }, 5000);
     return () => clearInterval(timer);
   }, [testimonials.length]);
+
+  // Ensure all content is visible on mount
   useEffect(() => {
-    // Animate elements on scroll
+    // Force visibility of all animated elements after a short delay
+    const timer = setTimeout(() => {
+      const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-fade-in, .animate-slide-up');
+      animatedElements.forEach(el => {
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'translateY(0) scale(1)';
+      });
+    }, 200);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  useEffect(() => {
+    // Animate elements on scroll - with fallback to ensure visibility
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     };
+    
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -211,8 +226,19 @@ const Index = () => {
         }
       });
     }, observerOptions);
+    
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    animatedElements.forEach(el => observer.observe(el));
+    animatedElements.forEach(el => {
+      observer.observe(el);
+      // Ensure elements are visible even if observer fails
+      setTimeout(() => {
+        if (el.classList.contains('animate-on-scroll')) {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }
+      }, 100);
+    });
+    
     return () => observer.disconnect();
   }, []);
   const scrollToContact = () => {
@@ -237,6 +263,8 @@ const Index = () => {
 
       {/* Floating WhatsApp Button */}
       <FloatingWhatsApp />
+
+
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
