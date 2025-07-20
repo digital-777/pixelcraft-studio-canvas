@@ -466,52 +466,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Why Top Studios Choose PixelCraft Website</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              This professional website template is designed specifically for photography studios to convert visitors into clients
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center animate-on-scroll group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                <Users className="w-10 h-10 text-gold" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Designed to Convert Visitors into Clients</h3>
-              <p className="text-muted-foreground">Strategic layout and CTAs that guide visitors to book your services</p>
-            </div>
-
-            <div className="text-center animate-on-scroll group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                <Smartphone className="w-10 h-10 text-gold" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Mobile-Optimized for Social Media Traffic</h3>
-              <p className="text-muted-foreground">Perfect for Instagram and social media visitors on mobile devices</p>
-            </div>
-
-            <div className="text-center animate-on-scroll group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                <Zap className="w-10 h-10 text-gold" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Fast Loading & SEO-Friendly for Google Ranking</h3>
-              <p className="text-muted-foreground">Built for speed and search engine optimization to attract new clients</p>
-            </div>
-
-            <div className="text-center animate-on-scroll group">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                <Palette className="w-10 h-10 text-gold" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Fully Customizable to Match Your Brand</h3>
-              <p className="text-muted-foreground">Easy to customize colors, fonts, and content to match your studio's brand</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Exclusive Offer Section */}
       <section className="py-20 bg-gradient-to-r from-gold/20 to-gold-dark/20">
         <div className="container mx-auto px-4">
