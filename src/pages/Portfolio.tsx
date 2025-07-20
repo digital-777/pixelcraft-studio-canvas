@@ -110,6 +110,11 @@ const Portfolio = () => {
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === selectedCategory);
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Animation on scroll
   useEffect(() => {
     const observerOptions = {
@@ -140,21 +145,26 @@ const Portfolio = () => {
       <FloatingWhatsApp />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="relative pt-24 pb-16 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={heroImage} alt="Professional photographer in action" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        
+        <div className="relative z-10 container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto animate-on-scroll">
             <div className="flex justify-center mb-6">
               <Link to="/">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="border-white bg-white/10 text-white hover:bg-white hover:text-primary">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Home
                 </Button>
               </Link>
             </div>
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 text-white">
               Our Complete <span className="text-gold">Portfolio</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-xl text-white/90 mb-8">
               Explore our comprehensive collection of photography work across different categories and styles
             </p>
           </div>

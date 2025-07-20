@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 
 const FloatingWhatsApp = () => {
   const openWhatsApp = () => {
-    window.open('https://wa.me/9313202075?text=Hi! I would like to book a photography session.', '_blank');
+    const message = encodeURIComponent('Hello Team PixelCraft! 📸🧡\nI\'m looking to freeze some beautiful memories in time...\nCan you guide me on your session packages and next availability? 🕰️✨\nCan\'t wait to create timeless magic with you. 🎞️🌟');
+    window.open(`https://wa.me/9313202075?text=${message}`, '_blank');
   };
 
   return (

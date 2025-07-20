@@ -233,8 +233,8 @@ const Index = () => {
       // Ensure elements are visible even if observer fails
       setTimeout(() => {
         if (el.classList.contains('animate-on-scroll')) {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
+          (el as HTMLElement).style.opacity = '1';
+          (el as HTMLElement).style.transform = 'translateY(0)';
         }
       }, 100);
     });
@@ -252,7 +252,8 @@ const Index = () => {
     });
   };
   const openWhatsApp = () => {
-    window.open('https://wa.me/9313202075?text=Hi! I would like to book a photography session.', '_blank');
+    const message = encodeURIComponent('Hello Team PixelCraft! 📸🧡\nI\'m looking to freeze some beautiful memories in time...\nCan you guide me on your session packages and next availability? 🕰️✨\nCan\'t wait to create timeless magic with you. 🎞️🌟');
+    window.open(`https://wa.me/9313202075?text=${message}`, '_blank');
   };
   const openInstagram = () => {
     window.open('https://instagram.com/pixelcraftstudio', '_blank');
@@ -465,7 +466,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20">
+      <section id="testimonials" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">What Our Clients Say</h2>
@@ -645,7 +646,7 @@ const Index = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Phone</p>
-                    <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="text-muted-foreground">+91 9313202075</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -663,7 +664,7 @@ const Index = () => {
                   </div>
                   <div>
                     <p className="font-semibold">Studio Location</p>
-                    <p className="text-muted-foreground">123 Photography Lane, Creative District</p>
+                    <p className="text-muted-foreground">Rajkot, Gujarat, India</p>
                   </div>
                 </div>
               </div>
@@ -742,63 +743,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Blog Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Photography Tips & Insights</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Expert advice to help you prepare for your perfect photo session
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
-              <div className="relative overflow-hidden rounded-t-lg">
-                <img 
-                  src={weddingSample} 
-                  alt="Wedding preparation tips" 
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-gold text-primary">Wedding Tips</Badge>
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3">How to Prepare for a Wedding Shoot</h3>
-                <p className="text-muted-foreground mb-4">
-                  Essential tips for couples to ensure their wedding day photography goes smoothly and captures every precious moment.
-                </p>
-                <Button variant="outline" className="group-hover:border-gold group-hover:text-gold">
-                  Read More
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
-              <div className="relative overflow-hidden rounded-t-lg">
-                <img 
-                  src={corporateSample} 
-                  alt="Photo posing tips" 
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-gold text-primary">Portrait Tips</Badge>
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3">5 Tips to Look Great in Candid Photos</h3>
-                <p className="text-muted-foreground mb-4">
-                  Learn how to feel confident and natural in front of the camera for stunning candid photography results.
-                </p>
-                <Button variant="outline" className="group-hover:border-gold group-hover:text-gold">
-                  Read More
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-12">
@@ -849,7 +794,7 @@ const Index = () => {
               <ul className="space-y-2 text-primary-foreground/80">
                 <li className="flex items-center">
                   <Phone className="w-4 h-4 mr-2 text-gold" />
-                  +1 (555) 123-4567
+                  +91 9313202075
                 </li>
                 <li className="flex items-center">
                   <Mail className="w-4 h-4 mr-2 text-gold" />
@@ -857,14 +802,14 @@ const Index = () => {
                 </li>
                 <li className="flex items-center">
                   <MapPin className="w-4 h-4 mr-2 text-gold" />
-                  123 Photography Lane, Creative District
+                  Rajkot, Gujarat, India
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/60">
-            <p>&copy; 2025 PixelCraft Studio. All rights reserved. | Crafted with ❤️ for capturing memories</p>
+            <p>&copy; 2025 PixelCraft Studio. All rights reserved. | Crated By Priyank Viradiya</p>
           </div>
         </div>
       </footer>
