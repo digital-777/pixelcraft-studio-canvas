@@ -9,6 +9,8 @@ import weddingSample from '@/assets/wedding-sample.jpg';
 import corporateSample from '@/assets/corporate-sample.jpg';
 import productSample from '@/assets/product-sample.jpg';
 import heroImage from '@/assets/hero-photographer.jpg';
+import StickyNav from '@/components/StickyNav';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -131,29 +133,24 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="text-2xl font-bold text-primary">
-              <span className="font-serif">PixelCraft</span>
-              <span className="text-gold ml-2">Studio</span>
-            </Link>
-            
-            <Link to="/">
-              <Button variant="outline" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* Sticky Navigation */}
+      <StickyNav />
+
+      {/* Floating WhatsApp Button */}
+      <FloatingWhatsApp />
 
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto animate-on-scroll">
+            <div className="flex justify-center mb-6">
+              <Link to="/">
+                <Button variant="outline" size="sm">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
             <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
               Our Complete <span className="text-gold">Portfolio</span>
             </h1>
@@ -194,6 +191,7 @@ const Portfolio = () => {
                     src={item.image}
                     alt={item.title}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div className="portfolio-overlay">
                     <div className="text-white text-center p-4">

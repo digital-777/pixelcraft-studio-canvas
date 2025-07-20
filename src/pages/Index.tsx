@@ -5,7 +5,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send, MessageCircle, ChevronLeft, ChevronRight, Clock, Smartphone, Zap, Palette, Video, Calendar } from 'lucide-react';
+import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send, MessageCircle, ChevronLeft, ChevronRight, Clock, Smartphone, Zap, Palette, Video, Calendar, Search, Target, Globe, Brush, CheckCircle, Play } from 'lucide-react';
+import StickyNav from '@/components/StickyNav';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 // Import images
 import heroImage from '@/assets/hero-photographer.jpg';
@@ -224,65 +226,17 @@ const Index = () => {
     });
   };
   const openWhatsApp = () => {
-    window.open('https://wa.me/1234567890?text=Hi! I would like to book a photography session.', '_blank');
+    window.open('https://wa.me/9313202075?text=Hi! I would like to book a photography session.', '_blank');
   };
   const openInstagram = () => {
     window.open('https://instagram.com/pixelcraftstudio', '_blank');
   };
   return <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-primary">
-              <span className="font-serif">PixelCraft</span>
-              <span className="text-gold ml-2">Studio</span>
-            </div>
-            
-            <nav className="hidden md:flex space-x-8">
-              {['About', 'Services', 'Portfolio', 'Pricing', 'Contact'].map(item => <a key={item} href={`#${item.toLowerCase()}`} className="text-foreground hover:text-gold transition-colors duration-300">
-                  {item}
-                </a>)}
-            </nav>
+      {/* Sticky Navigation */}
+      <StickyNav />
 
-            <div className="hidden md:flex items-center space-x-4">
-              <Button variant="outline" size="sm">
-                <Instagram className="w-4 h-4" />
-              </Button>
-              <Button variant="outline" size="sm">
-                <Facebook className="w-4 h-4" />
-              </Button>
-              <Button onClick={openWhatsApp} className="btn-gold">
-                Book Now
-              </Button>
-            </div>
-
-            <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </Button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && <div className="md:hidden mt-4 pb-4 border-t border-border">
-              <nav className="flex flex-col space-y-3 pt-4">
-                {['About', 'Services', 'Portfolio', 'Pricing', 'Contact'].map(item => <a key={item} href={`#${item.toLowerCase()}`} className="text-foreground hover:text-gold transition-colors duration-300" onClick={() => setIsMenuOpen(false)}>
-                    {item}
-                  </a>)}
-                <div className="flex space-x-2 pt-2">
-                  <Button variant="outline" size="sm">
-                    <Instagram className="w-4 h-4" />
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Facebook className="w-4 h-4" />
-                  </Button>
-                  <Button onClick={openWhatsApp} className="btn-gold">
-                    Book Now
-                  </Button>
-                </div>
-              </nav>
-            </div>}
-        </div>
-      </header>
+      {/* Floating WhatsApp Button */}
+      <FloatingWhatsApp />
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -296,25 +250,73 @@ const Index = () => {
             Capturing Moments
             <span className="block text-gold">That Matter</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 animate-fade-in animate-delay-200">
+          <p className="text-xl md:text-2xl mb-4 animate-fade-in animate-delay-200">
             Professional photography for every occasion
           </p>
-          <div className="space-x-4 animate-fade-in animate-delay-300">
+          <p className="text-lg md:text-xl mb-8 animate-fade-in animate-delay-300 text-gold font-medium">
+            Secure your 2025 dates — limited slots available!
+          </p>
+          <div className="space-x-4 animate-fade-in animate-delay-400">
             <Button onClick={scrollToContact} size="lg" className="btn-gold">
-              Book a Shoot
+              Book Now
             </Button>
-            <Button onClick={scrollToPortfolio} variant="outline" size="lg" className="border-white bg-zinc-50 text-zinc-950">
-              View Portfolio
+            <Button onClick={scrollToPortfolio} variant="outline" size="lg" className="border-white bg-white/10 text-white hover:bg-white hover:text-primary">
+              <Play className="w-5 h-5 mr-2" />
+              See Live Demo
             </Button>
           </div>
-          <p className="text-lg mt-6 animate-fade-in animate-delay-400 text-gold">
-            Book now to lock in availability for your event!
-          </p>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Why Top Studios Choose PixelCraft Website</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Built specifically for photography businesses to convert visitors into clients
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: Target,
+                title: 'Built for Instagram & Google Ads',
+                description: 'Optimized layouts that convert social media traffic into bookings'
+              },
+              {
+                icon: Smartphone,
+                title: 'Mobile-First & Lightning Fast',
+                description: 'Perfect viewing experience on all devices with instant loading'
+              },
+              {
+                icon: Search,
+                title: 'SEO Ready to Get You Seen',
+                description: 'Built-in SEO optimization to rank higher on Google searches'
+              },
+              {
+                icon: Brush,
+                title: 'Stunning Visuals to Impress',
+                description: 'Beautiful gallery displays that showcase your work perfectly'
+              }
+            ].map((feature, index) => (
+              <Card key={index} className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
+                    <feature.icon className="w-8 h-8 text-gold" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-muted/30">
+      <section id="about" className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-on-scroll">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">About PixelCraft Studio</h2>
@@ -712,6 +714,64 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Blog Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Photography Tips & Insights</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Expert advice to help you prepare for your perfect photo session
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
+              <div className="relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={weddingSample} 
+                  alt="Wedding preparation tips" 
+                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-gold text-primary">Wedding Tips</Badge>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3">How to Prepare for a Wedding Shoot</h3>
+                <p className="text-muted-foreground mb-4">
+                  Essential tips for couples to ensure their wedding day photography goes smoothly and captures every precious moment.
+                </p>
+                <Button variant="outline" className="group-hover:border-gold group-hover:text-gold">
+                  Read More
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
+              <div className="relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={corporateSample} 
+                  alt="Photo posing tips" 
+                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-gold text-primary">Portrait Tips</Badge>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3">5 Tips to Look Great in Candid Photos</h3>
+                <p className="text-muted-foreground mb-4">
+                  Learn how to feel confident and natural in front of the camera for stunning candid photography results.
+                </p>
+                <Button variant="outline" className="group-hover:border-gold group-hover:text-gold">
+                  Read More
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-12">
         <div className="container mx-auto px-4">
@@ -776,15 +836,11 @@ const Index = () => {
           </div>
 
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-primary-foreground/60">
-            <p>&copy; 2024 PixelCraft Studio. All rights reserved. | Crafted with ❤️ for capturing memories</p>
+            <p>&copy; 2025 PixelCraft Studio. All rights reserved. | Crafted with ❤️ for capturing memories</p>
           </div>
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button */}
-      <button onClick={openWhatsApp} className="whatsapp-float" aria-label="Contact us on WhatsApp">
-        <MessageCircle className="w-7 h-7" />
-      </button>
 
       {/* Lightbox */}
       {lightboxImage && <div className="lightbox-overlay" onClick={() => setLightboxImage(null)}>
