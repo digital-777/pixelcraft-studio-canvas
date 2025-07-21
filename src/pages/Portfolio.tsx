@@ -18,19 +18,6 @@ const Portfolio = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initial loading effect
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <PageLoader message="Loading portfolio..." />;
-  }
-
   // Extended portfolio with more items
   const portfolioItems = [
     {
@@ -125,6 +112,15 @@ const Portfolio = () => {
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === selectedCategory);
 
+  // Initial loading effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -137,19 +133,25 @@ const Portfolio = () => {
       rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in');
         }
       });
     }, observerOptions);
 
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    animatedElements.forEach(el => observer.observe(el));
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      animateElements.forEach((el) => observer.unobserve(el));
+    };
+  }, [selectedCategory]); // Re-run when category changes
+
+  if (isLoading) {
+    return <PageLoader message="Loading portfolio..." />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
