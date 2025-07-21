@@ -52,7 +52,13 @@ interface PageLoaderProps {
 export function PageLoader({ message = "Loading..." }: PageLoaderProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm">
-      <div className="flex flex-col items-center space-y-6">
+      {/* Door Animation - Left Door */}
+      <div className="fixed inset-0 bg-accent/90 animate-[slide-out-left_1s_ease-in-out_2s_forwards] origin-left"></div>
+      
+      {/* Door Animation - Right Door */}
+      <div className="fixed inset-0 bg-accent/90 animate-[slide-out-right_1s_ease-in-out_2s_forwards] origin-right"></div>
+      
+      <div className="flex flex-col items-center space-y-6 animate-[fade-out_0.5s_ease-in-out_1.5s_forwards]">
         {/* Main loader with camera effect */}
         <div className="relative">
           <Loader variant="camera" size="lg" />
