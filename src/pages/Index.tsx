@@ -297,52 +297,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Why Top Studios Choose PixelCraft Website</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Built specifically for photography businesses to convert visitors into clients
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Target,
-                title: 'Built for Instagram & Google Ads',
-                description: 'Optimized layouts that convert social media traffic into bookings'
-              },
-              {
-                icon: Smartphone,
-                title: 'Mobile-First & Lightning Fast',
-                description: 'Perfect viewing experience on all devices with instant loading'
-              },
-              {
-                icon: Search,
-                title: 'SEO Ready to Get You Seen',
-                description: 'Built-in SEO optimization to rank higher on Google searches'
-              },
-              {
-                icon: Brush,
-                title: 'Stunning Visuals to Impress',
-                description: 'Beautiful gallery displays that showcase your work perfectly'
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                    <feature.icon className="w-8 h-8 text-gold" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* About Section */}
       <section id="about" className="py-20">
