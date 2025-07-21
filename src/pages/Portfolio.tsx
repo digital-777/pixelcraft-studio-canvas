@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { PageLoader } from '@/components/ui/loader';
 import { X, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +16,20 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Initial loading effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <PageLoader message="Loading portfolio..." />;
+  }
 
   // Extended portfolio with more items
   const portfolioItems = [
