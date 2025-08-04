@@ -12,8 +12,15 @@ const StickyNav = () => {
 
   useEffect(() => {
     // Set active section based on current page
-    if (location.pathname === '/portfolio') {
+    const path = location.pathname;
+    if (path === '/portfolio') {
       setActiveSection('portfolio');
+    } else if (path === '/services') {
+      setActiveSection('services');
+    } else if (path === '/testimonials') {
+      setActiveSection('testimonials');
+    } else if (path === '/contact') {
+      setActiveSection('contact');
     } else {
       setActiveSection('home');
     }
@@ -66,64 +73,42 @@ const StickyNav = () => {
             <span className="text-gold ml-2">Studio</span>
           </div>
           
-          {location.pathname === '/' && (
-            <nav className="hidden md:flex space-x-8">
-              {['Home', 'Services', 'Portfolio', 'Testimonials', 'Contact'].map(item => {
-                const sectionId = item === 'Home' ? 'home' : item.toLowerCase();
-                const isActive = activeSection === sectionId;
-                const linkTo = item === 'Home' ? '/' : item === 'Portfolio' ? '/portfolio' : `/#${item.toLowerCase()}`;
-                
-                const handleClick = (e: React.MouseEvent) => {
-                  if (item === 'Home') {
-                    e.preventDefault();
-                    if (location.pathname === '/') {
-                      // If on home page, scroll to top
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else {
-                      // If on other pages, navigate to home page
-                      navigate('/');
-                    }
-                  } else if (item !== 'Portfolio') {
-                    e.preventDefault();
-                    if (location.pathname === '/') {
-                      // If on home page, scroll to section
-                      const element = document.getElementById(item.toLowerCase());
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    } else {
-                      // If on other pages, navigate to home page and scroll to section
-                      navigate(`/#${item.toLowerCase()}`);
-                    }
-                  }
-                };
-                
-                return (
-                  <Link
-                    key={item}
-                    to={linkTo}
-                    onClick={handleClick}
-                    className={`transition-colors duration-300 relative ${
-                      isScrolled 
-                        ? isActive 
-                          ? 'text-gold font-semibold' 
-                          : 'text-primary hover:text-gold'
-                        : isActive 
-                          ? 'text-gold font-semibold' 
-                          : 'text-white hover:text-gold'
-                    }`}
-                  >
-                    {item}
-                    {isActive && (
-                      <div className={`absolute -bottom-1 left-0 w-full h-0.5 transition-all duration-300 ${
-                        isScrolled ? 'bg-gold' : 'bg-gold'
-                      }`} />
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
-          )}
+          <nav className="hidden md:flex space-x-8">
+            {['Home', 'Services', 'Portfolio', 'Testimonials', 'Contact'].map(item => {
+              const sectionId = item === 'Home' ? 'home' : item.toLowerCase();
+              const isActive = activeSection === sectionId;
+              
+              // Determine the correct route for each nav item
+              let linkTo = '/';
+              if (item === 'Services') linkTo = '/services';
+              else if (item === 'Portfolio') linkTo = '/portfolio';
+              else if (item === 'Testimonials') linkTo = '/testimonials';
+              else if (item === 'Contact') linkTo = '/contact';
+              
+              return (
+                <Link
+                  key={item}
+                  to={linkTo}
+                  className={`transition-colors duration-300 relative ${
+                    isScrolled 
+                      ? isActive 
+                        ? 'text-gold font-semibold' 
+                        : 'text-primary hover:text-gold'
+                      : isActive 
+                        ? 'text-gold font-semibold' 
+                        : 'text-white hover:text-gold'
+                  }`}
+                >
+                  {item}
+                  {isActive && (
+                    <div className={`absolute -bottom-1 left-0 w-full h-0.5 transition-all duration-300 ${
+                      isScrolled ? 'bg-gold' : 'bg-gold'
+                    }`} />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
 
           <div className="hidden md:flex items-center space-x-4">
             <Button variant="outline" size="sm">
@@ -148,38 +133,22 @@ const StickyNav = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && location.pathname === '/' && (
+        {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border">
             <nav className="flex flex-col space-y-3 pt-4">
               {['Home', 'Services', 'Portfolio', 'Testimonials', 'Contact'].map(item => {
                 const sectionId = item === 'Home' ? 'home' : item.toLowerCase();
                 const isActive = activeSection === sectionId;
-                const linkTo = item === 'Home' ? '/' : item === 'Portfolio' ? '/portfolio' : `/#${item.toLowerCase()}`;
                 
-                const handleClick = (e: React.MouseEvent) => {
+                // Determine the correct route for each nav item
+                let linkTo = '/';
+                if (item === 'Services') linkTo = '/services';
+                else if (item === 'Portfolio') linkTo = '/portfolio';
+                else if (item === 'Testimonials') linkTo = '/testimonials';
+                else if (item === 'Contact') linkTo = '/contact';
+                
+                const handleClick = () => {
                   setIsMenuOpen(false);
-                  if (item === 'Home') {
-                    e.preventDefault();
-                    if (location.pathname === '/') {
-                      // If on home page, scroll to top
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    } else {
-                      // If on other pages, navigate to home page
-                      navigate('/');
-                    }
-                  } else if (item !== 'Portfolio') {
-                    e.preventDefault();
-                    if (location.pathname === '/') {
-                      // If on home page, scroll to section
-                      const element = document.getElementById(item.toLowerCase());
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    } else {
-                      // If on other pages, navigate to home page and scroll to section
-                      navigate(`/#${item.toLowerCase()}`);
-                    }
-                  }
                 };
                 
                 return (
