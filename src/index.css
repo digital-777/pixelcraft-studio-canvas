@@ -261,3 +261,182 @@ All colors MUST be HSL for consistent theming.
     transform: scale(1);
   }
 }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes bokeh {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1) translateY(0px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) translateY(-10px);
+  }
+}
+
+@keyframes letterReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) rotateX(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* Hero section enhancements */
+.hero-cinematic {
+  background: linear-gradient(135deg, hsl(220, 30%, 8%) 0%, hsl(45, 20%, 15%) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cinematic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, hsl(45, 100%, 60%) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, hsl(30, 100%, 50%) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, hsl(45, 80%, 70%) 0%, transparent 70%);
+  opacity: 0.1;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-cinematic::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f59e0b' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  animation: float 12s ease-in-out infinite reverse;
+}
+
+.floating-element {
+  position: absolute;
+  background: linear-gradient(45deg, hsl(45, 100%, 60%), hsl(30, 100%, 50%));
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: bokeh 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(1) {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-element:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  top: 70%;
+  right: 20%;
+  animation-delay: 2s;
+}
+
+.floating-element:nth-child(3) {
+  width: 80px;
+  height: 80px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.hero-title {
+  background: linear-gradient(135deg, hsl(45, 100%, 85%) 0%, hsl(30, 100%, 70%) 50%, hsl(45, 100%, 60%) 100%);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.letter-reveal {
+  display: inline-block;
+  animation: letterReveal 0.8s ease-out forwards;
+  animation-delay: calc(var(--delay) * 0.1s);
+}
+
+.magnetic-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.magnetic-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, hsl(45, 100%, 80%) 0%, transparent 70%);
+  transition: all 0.5s ease;
+  transform: translate(-50%, -50%);
+}
+
+.magnetic-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.magnetic-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 20px 40px -10px hsl(45, 100%, 60% / 0.4);
+}
+
+.glass-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.glass-btn:hover::before {
+  left: 100%;
+}
+
+.glass-btn:hover {
+  background: linear-gradient(135deg, hsl(45, 100%, 60%), hsl(30, 100%, 50%));
+  border: 1px solid transparent;
+  color: hsl(220, 30%, 8%);
+  transform: translateY(-2px);
+}
