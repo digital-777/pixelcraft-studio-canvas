@@ -10,6 +10,9 @@ const StickyNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  // Check if we're on a page with light background from the start
+  const isOnLightPage = location.pathname !== '/';
+
   useEffect(() => {
     // Set active section based on current page
     const path = location.pathname;
@@ -67,7 +70,7 @@ const StickyNav = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className={`text-2xl font-bold transition-colors duration-300 ${
-            isScrolled ? 'text-primary' : 'text-white'
+            isScrolled || isOnLightPage ? 'text-primary' : 'text-white'
           }`}>
             <span className="font-serif">PixelCraft</span>
             <span className="text-gold ml-2">Studio</span>
@@ -90,7 +93,7 @@ const StickyNav = () => {
                   key={item}
                   to={linkTo}
                   className={`transition-colors duration-300 relative ${
-                    isScrolled 
+                    isScrolled || isOnLightPage
                       ? isActive 
                         ? 'text-gold font-semibold' 
                         : 'text-primary hover:text-gold'
@@ -122,10 +125,10 @@ const StickyNav = () => {
             </Button>
           </div>
 
-          <Button 
+            <Button 
             variant="ghost" 
             size="sm" 
-            className="md:hidden" 
+            className={`md:hidden ${isScrolled || isOnLightPage ? 'text-primary' : 'text-white'}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -157,7 +160,7 @@ const StickyNav = () => {
                     to={linkTo}
                     onClick={handleClick}
                     className={`transition-colors duration-300 ${
-                      isScrolled 
+                      isScrolled || isOnLightPage
                         ? isActive 
                           ? 'text-gold font-semibold' 
                           : 'text-primary hover:text-gold'
