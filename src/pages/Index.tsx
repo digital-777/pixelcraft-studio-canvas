@@ -268,57 +268,31 @@ const Index = () => {
 
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden hero-cinematic">
-        {/* Floating Elements */}
-        <div className="floating-element"></div>
-        <div className="floating-element"></div>
-        <div className="floating-element"></div>
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={heroImage} alt="Professional photographer in action" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 hero-overlay"></div>
+        </div>
         
-        <div className="relative text-center text-white z-10 max-w-5xl mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 hero-title leading-tight">
-            Every Frame Tells
-            <span className="block">Your Story</span>
+        <div className="relative text-center text-white z-10 max-w-4xl mx-auto px-4">
+          <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 animate-fade-in">
+            Capturing Moments
+            <span className="block text-gold">That Matter</span>
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-6 text-white/90 max-w-3xl mx-auto leading-relaxed animate-fade-in animate-delay-200">
-            From intimate weddings to bold corporate visions, we don't just take photos — we preserve the emotions, capture the essence, and create timeless memories that last forever.
+          <p className="text-xl md:text-2xl mb-4 animate-fade-in animate-delay-200">
+            Professional photography for every occasion
           </p>
-          <div className="flex items-center justify-center gap-2 mb-8 animate-fade-in animate-delay-300">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-gold text-gold" />
-              ))}
-            </div>
-            <span className="text-white/80 font-medium">500+ Happy Clients</span>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in animate-delay-400">
-            <Button 
-              onClick={scrollToContact} 
-              size="lg" 
-              className="magnetic-btn bg-gradient-to-r from-gold to-gold-dark text-primary font-semibold px-8 py-4 text-lg rounded-xl relative z-10"
-            >
-              <Calendar className="w-5 h-5 mr-2" />
-              Book Your Session
+          <p className="text-lg md:text-xl mb-8 animate-fade-in animate-delay-300 text-gold font-medium">
+            Secure your 2025 dates — limited slots available!
+          </p>
+          <div className="space-x-4 animate-fade-in animate-delay-400">
+            <Button onClick={scrollToContact} size="lg" className="btn-gold">
+              Book Now
             </Button>
-            <Button 
-              onClick={scrollToPortfolio} 
-              size="lg" 
-              className="glass-btn text-white font-medium px-8 py-4 text-lg rounded-xl"
-            >
-              <Camera className="w-5 h-5 mr-2" />
-              View Portfolio
+            <Button onClick={scrollToPortfolio} variant="outline" size="lg" className="border-white bg-white/10 text-white hover:bg-white hover:text-primary">
+              <Play className="w-5 h-5 mr-2" />
+              See Live Demo
             </Button>
-          </div>
-          
-          {/* Trust Indicators */}
-          <div className="mt-12 animate-fade-in animate-delay-500">
-            <p className="text-sm text-white/60 mb-4">Trusted by leading brands</p>
-            <div className="flex justify-center items-center gap-8 opacity-50">
-              <div className="text-white/40 font-medium text-sm">Award Winner 2024</div>
-              <div className="w-px h-4 bg-white/20"></div>
-              <div className="text-white/40 font-medium text-sm">Google 5★ Rating</div>
-              <div className="w-px h-4 bg-white/20"></div>
-              <div className="text-white/40 font-medium text-sm">500+ Projects</div>
-            </div>
           </div>
         </div>
       </section>
