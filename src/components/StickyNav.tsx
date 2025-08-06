@@ -10,8 +10,8 @@ const StickyNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  // Check if we're on a page with light background from the start
-  const isOnLightPage = location.pathname !== '/';
+  // Check if we're on a page with light background from the start (exclude portfolio as it has dark background)
+  const isOnLightPage = location.pathname !== '/' && location.pathname !== '/portfolio';
 
   useEffect(() => {
     // Set active section based on current page
