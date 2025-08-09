@@ -11,9 +11,13 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 // Import images
 import heroImage from '@/assets/hero-photographer.jpg';
+import heroImageMobile from '@/assets/hero-photographer-mobile.jpg';
 import weddingSample from '@/assets/wedding-sample.jpg';
+import weddingSampleMobile from '@/assets/wedding-sample-mobile.jpg';
 import corporateSample from '@/assets/corporate-sample.jpg';
+import corporateSampleMobile from '@/assets/corporate-sample-mobile.jpg';
 import productSample from '@/assets/product-sample.jpg';
+import productSampleMobile from '@/assets/product-sample-mobile.jpg';
 
 // Import new images
 import instagram1 from '@/assets/instagram-1.jpg';
@@ -92,6 +96,13 @@ const Index = () => {
     image: productSample,
     title: 'Premium Showcase'
   }];
+  const mobileVariant: Record<string, string> = {
+    [weddingSample]: weddingSampleMobile,
+    [corporateSample]: corporateSampleMobile,
+    [productSample]: productSampleMobile,
+    [heroImage]: heroImageMobile,
+  };
+
   const testimonials = [{
     name: 'Sarah & Michael',
     text: 'PixelCraft Studio captured our wedding day perfectly. Every moment was beautifully preserved with such attention to detail.',
@@ -270,7 +281,10 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Professional photographer in action" className="w-full h-full object-cover" />
+          <picture>
+            <source media="(min-width: 768px)" srcSet={heroImage} />
+            <img src={heroImageMobile} alt="Professional photographer in action" className="w-full h-full object-cover" />
+          </picture>
           <div className="absolute inset-0 hero-overlay"></div>
         </div>
         
@@ -360,7 +374,10 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPortfolio.map(item => <div key={item.id} className="portfolio-item group cursor-pointer animate-on-scroll" onClick={() => setLightboxImage(item.image)}>
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
-                  <img src={item.image} alt={item.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <picture>
+                    <source media="(min-width: 768px)" srcSet={item.image} />
+                    <img src={mobileVariant[item.image] || item.image} alt={item.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                  </picture>
                   <div className="portfolio-overlay">
                     <div className="text-white text-center">
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>

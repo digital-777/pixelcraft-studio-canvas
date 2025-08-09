@@ -7,9 +7,13 @@ import { Link } from 'react-router-dom';
 
 // Import sample images
 import weddingSample from '@/assets/wedding-sample.jpg';
+import weddingSampleMobile from '@/assets/wedding-sample-mobile.jpg';
 import corporateSample from '@/assets/corporate-sample.jpg';
+import corporateSampleMobile from '@/assets/corporate-sample-mobile.jpg';
 import productSample from '@/assets/product-sample.jpg';
+import productSampleMobile from '@/assets/product-sample-mobile.jpg';
 import heroImage from '@/assets/hero-photographer.jpg';
+import heroImageMobile from '@/assets/hero-photographer-mobile.jpg';
 import StickyNav from '@/components/StickyNav';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
@@ -106,6 +110,13 @@ const Portfolio = () => {
     }
   ];
 
+  const mobileVariant: Record<string, string> = {
+    [weddingSample]: weddingSampleMobile,
+    [corporateSample]: corporateSampleMobile,
+    [productSample]: productSampleMobile,
+    [heroImage]: heroImageMobile,
+  };
+
   const categories = ['All', 'Wedding', 'Corporate', 'Product', 'Fashion', 'Portrait'];
 
   const filteredPortfolio = selectedCategory === 'All' 
@@ -164,7 +175,10 @@ const Portfolio = () => {
       {/* Hero Section */}
       <section className="relative pt-24 pb-16 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Professional photographer in action" className="w-full h-full object-cover" />
+          <picture>
+            <source media="(min-width: 768px)" srcSet={heroImage} />
+            <img src={heroImageMobile} alt="Professional photographer in action" className="w-full h-full object-cover" />
+          </picture>
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         
@@ -214,12 +228,15 @@ const Portfolio = () => {
                 onClick={() => setLightboxImage(item.image)}
               >
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
+                  <picture>
+                    <source media="(min-width: 768px)" srcSet={item.image} />
+                    <img
+                      src={mobileVariant[item.image] || item.image}
+                      alt={item.title}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </picture>
                   <div className="portfolio-overlay">
                     <div className="text-white text-center p-4">
                       <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
