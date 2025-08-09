@@ -231,6 +231,68 @@ All colors MUST be HSL for consistent theming.
   }
 }
 
+/* Enhanced Animations and Effects */
+.stats-card {
+  @apply bg-background/50 backdrop-blur-sm border border-border/20 rounded-xl p-6 text-center hover:bg-background/70 transition-all duration-500 hover:scale-105 hover:shadow-xl;
+}
+
+.timeline-item {
+  @apply relative pl-10 pb-12 last:pb-0;
+}
+
+.timeline-item::before {
+  @apply absolute left-0 top-0 w-4 h-4 bg-gold rounded-full border-4 border-background shadow-md;
+  content: '';
+}
+
+.timeline-item::after {
+  @apply absolute left-2 top-4 w-0.5 bg-gradient-to-b from-gold to-gold/30 h-full;
+  content: '';
+}
+
+.timeline-item:last-child::after {
+  display: none;
+}
+
+.marquee {
+  @apply flex animate-scroll whitespace-nowrap;
+}
+
+.marquee-content {
+  @apply flex items-center space-x-12 animate-scroll-infinite;
+}
+
+.floating-element {
+  @apply animate-float;
+}
+
+.glass-card {
+  @apply bg-background/10 backdrop-blur-md border border-white/20 rounded-xl shadow-xl;
+}
+
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-gold to-gold-dark bg-clip-text text-transparent;
+}
+
+.reveal-on-scroll {
+  @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+}
+
+.reveal-on-scroll.revealed {
+  @apply opacity-100 translate-y-0;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -259,5 +321,41 @@ All colors MUST be HSL for consistent theming.
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes scroll-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--gold) / 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
   }
 }

@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send, MessageCircle, ChevronLeft, ChevronRight, Clock, Smartphone, Zap, Palette, Video, Calendar, Search, Target, Globe, Brush, CheckCircle, Play } from 'lucide-react';
+import { Camera, Heart, Users, Briefcase, Baby, Shirt, Package, Star, Phone, Mail, MapPin, Instagram, Facebook, Menu, X, Send, MessageCircle, ChevronLeft, ChevronRight, Clock, Smartphone, Zap, Palette, Video, Calendar, Search, Target, Globe, Brush, CheckCircle, Play, Award, Trophy, Shield, Sparkles, ArrowRight, Quote, TrendingUp, Eye, MousePointer } from 'lucide-react';
 import StickyNav from '@/components/StickyNav';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
@@ -34,6 +34,12 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [stats, setStats] = useState({
+    projects: 0,
+    clients: 0,
+    awards: 0,
+    experience: 0
+  });
   const [timeLeft, setTimeLeft] = useState({
     days: 30,
     hours: 12,
@@ -163,6 +169,66 @@ const Index = () => {
     features: ['Full day coverage', '150+ edited photos', 'Online gallery', 'Premium retouching', 'Print release', 'Second photographer'],
     popular: false
   }];
+
+  const featuredClients = [
+    'Luxury Hotels', 'Fashion Brands', 'Corporate Giants', 'Celebrity Weddings', 'International Events', 'Art Galleries'
+  ];
+
+  const processSteps = [
+    {
+      step: '01',
+      title: 'Initial Consultation',
+      description: 'We discuss your vision, requirements, and preferences to understand your unique story.',
+      icon: MessageCircle
+    },
+    {
+      step: '02',
+      title: 'Planning & Preparation',
+      description: 'Detailed planning of locations, timeline, and equipment to ensure everything is perfect.',
+      icon: Calendar
+    },
+    {
+      step: '03',
+      title: 'Photography Session',
+      description: 'Professional shoot with creative direction and multiple setups for diverse captures.',
+      icon: Camera
+    },
+    {
+      step: '04',
+      title: 'Post-Production',
+      description: 'Expert editing, color grading, and retouching to bring out the best in every image.',
+      icon: Palette
+    },
+    {
+      step: '05',
+      title: 'Final Delivery',
+      description: 'High-resolution images delivered via online gallery with print-ready formats.',
+      icon: CheckCircle
+    }
+  ];
+
+  const faqData = [
+    {
+      question: 'How far in advance should I book?',
+      answer: 'We recommend booking 3-6 months in advance, especially for weddings and special events. This ensures availability and allows time for proper planning.'
+    },
+    {
+      question: 'What is included in your packages?',
+      answer: 'Our packages include the photography session, professional editing, online gallery access, and high-resolution digital images. Additional services like prints and albums are available.'
+    },
+    {
+      question: 'Do you travel for destination shoots?',
+      answer: 'Yes! We love destination photography and travel worldwide. Travel fees may apply depending on the location.'
+    },
+    {
+      question: 'How long does it take to receive photos?',
+      answer: 'Edited photos are typically delivered within 2-3 weeks for most sessions, and 4-6 weeks for wedding packages.'
+    },
+    {
+      question: 'Can we request specific editing styles?',
+      answer: 'Absolutely! We work with you to achieve the aesthetic you envision while maintaining our signature quality.'
+    }
+  ];
   const filteredPortfolio = selectedCategory === 'All' ? portfolioItems : portfolioItems.filter(item => item.category === selectedCategory);
 
   // Countdown timer effect
@@ -210,18 +276,56 @@ const Index = () => {
     return () => clearInterval(timer);
   }, [testimonials.length]);
 
-  // Ensure all content is visible on mount
+  // Stats counter animation
   useEffect(() => {
-    // Force visibility of all animated elements after a short delay
+    const targets = { projects: 500, clients: 200, awards: 15, experience: 8 };
+    const duration = 2000;
+    const steps = 60;
+    const stepTime = duration / steps;
+    
     const timer = setTimeout(() => {
-      const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-fade-in, .animate-slide-up');
-      animatedElements.forEach(el => {
-        (el as HTMLElement).style.opacity = '1';
-        (el as HTMLElement).style.transform = 'translateY(0) scale(1)';
-      });
-    }, 200);
+      let currentStep = 0;
+      const interval = setInterval(() => {
+        currentStep++;
+        const progress = currentStep / steps;
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        
+        setStats({
+          projects: Math.round(targets.projects * easeOutQuart),
+          clients: Math.round(targets.clients * easeOutQuart),
+          awards: Math.round(targets.awards * easeOutQuart),
+          experience: Math.round(targets.experience * easeOutQuart)
+        });
+        
+        if (currentStep >= steps) {
+          clearInterval(interval);
+          setStats(targets);
+        }
+      }, stepTime);
+    }, 1000);
     
     return () => clearTimeout(timer);
+  }, []);
+
+  // Enhanced scroll animations
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, observerOptions);
+    
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    elements.forEach(el => observer.observe(el));
+    
+    return () => observer.disconnect();
   }, []);
   useEffect(() => {
     // Animate elements on scroll - with fallback to ensure visibility
@@ -312,21 +416,101 @@ const Index = () => {
       </section>
 
 
+      {/* Featured Clients Marquee */}
+      <section className="py-12 bg-muted/30 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-muted-foreground mb-8 reveal-on-scroll">Trusted by leading brands and personalities</p>
+          <div className="marquee">
+            <div className="marquee-content">
+              {[...featuredClients, ...featuredClients].map((client, index) => (
+                <div key={index} className="flex items-center space-x-2 px-6">
+                  <Star className="w-4 h-4 text-gold" />
+                  <span className="text-lg font-medium whitespace-nowrap">{client}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
       <section id="about" className="py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">About PixelCraft Studio</h2>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              With over 8 years of experience in professional photography, PixelCraft Studio has been 
-              capturing life's most precious moments with artistry and passion. We believe that every 
-              photograph should tell a story, evoke emotion, and preserve memories that last a lifetime.
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="reveal-on-scroll">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">About PixelCraft Studio</h2>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+                With over 8 years of experience in professional photography, PixelCraft Studio has been 
+                capturing life's most precious moments with artistry and passion. We believe that every 
+                photograph should tell a story, evoke emotion, and preserve memories that last a lifetime.
+              </p>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Our team of skilled photographers combines technical expertise with creative vision to 
+                deliver exceptional results across all types of photography – from intimate weddings to 
+                corporate events, from fashion shoots to product photography.
+              </p>
+              <div className="flex items-center space-x-6">
+                <div className="flex items-center space-x-2">
+                  <Award className="w-6 h-6 text-gold" />
+                  <span className="font-medium">Award Winning</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Shield className="w-6 h-6 text-gold" />
+                  <span className="font-medium">Insured & Licensed</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Stats Cards */}
+            <div className="grid grid-cols-2 gap-6 reveal-on-scroll stagger-2">
+              <div className="stats-card floating-element">
+                <div className="text-3xl font-bold gradient-text mb-2">{stats.projects}+</div>
+                <div className="text-muted-foreground">Projects Completed</div>
+              </div>
+              <div className="stats-card floating-element stagger-1">
+                <div className="text-3xl font-bold gradient-text mb-2">{stats.clients}+</div>
+                <div className="text-muted-foreground">Happy Clients</div>
+              </div>
+              <div className="stats-card floating-element stagger-2">
+                <div className="text-3xl font-bold gradient-text mb-2">{stats.awards}+</div>
+                <div className="text-muted-foreground">Awards Won</div>
+              </div>
+              <div className="stats-card floating-element stagger-3">
+                <div className="text-3xl font-bold gradient-text mb-2">{stats.experience}+</div>
+                <div className="text-muted-foreground">Years Experience</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Process Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16 reveal-on-scroll">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Our Creative Process</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              From concept to delivery, we ensure every step is carefully crafted to exceed your expectations
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Our team of skilled photographers combines technical expertise with creative vision to 
-              deliver exceptional results across all types of photography – from intimate weddings to 
-              corporate events, from fashion shoots to product photography.
-            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            {processSteps.map((step, index) => (
+              <div key={index} className={`timeline-item reveal-on-scroll stagger-${index + 1}`}>
+                <div className="flex items-start space-x-6">
+                  <div className="flex-shrink-0 w-16 h-16 bg-gold/10 rounded-xl flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
+                    <step.icon className="w-8 h-8 text-gold" />
+                  </div>
+                  <div className="flex-grow">
+                    <div className="flex items-center space-x-4 mb-3">
+                      <span className="text-2xl font-bold gradient-text">{step.step}</span>
+                      <h3 className="text-xl font-semibold">{step.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -334,7 +518,7 @@ const Index = () => {
       {/* Services Section */}
       <section id="services" className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
+          <div className="text-center mb-16 reveal-on-scroll">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Our Services</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Professional photography services tailored to capture your unique moments
@@ -342,15 +526,23 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => <Card key={index} className="group hover:shadow-lg transition-all duration-300 animate-on-scroll">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-colors duration-300">
-                    <service.icon className="w-8 h-8 text-gold" />
+            {services.map((service, index) => (
+              <Card key={index} className={`group hover-lift transition-all duration-500 reveal-on-scroll stagger-${(index % 3) + 1} hover:border-gold/20 hover:shadow-2xl`}>
+                <CardContent className="p-8 text-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 mx-auto mb-6 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300 animate-pulse-glow">
+                      <service.icon className="w-8 h-8 text-gold" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 group-hover:text-gold transition-colors duration-300">{service.title}</h3>
+                    <p className="text-muted-foreground">{service.description}</p>
+                    <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ArrowRight className="w-5 h-5 mx-auto text-gold" />
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground">{service.description}</p>
                 </CardContent>
-              </Card>)}
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -358,40 +550,63 @@ const Index = () => {
       {/* Portfolio Section */}
       <section id="portfolio" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
+          <div className="text-center mb-16 reveal-on-scroll">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Our Portfolio</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               Explore our collection of memorable captures
             </p>
             
             <div className="flex flex-wrap justify-center gap-3">
-              {['All', 'Wedding', 'Corporate', 'Product'].map(category => <Button key={category} variant={selectedCategory === category ? "default" : "outline"} onClick={() => setSelectedCategory(category)} className={selectedCategory === category ? "btn-gold" : ""}>
+              {['All', 'Wedding', 'Corporate', 'Product'].map(category => (
+                <Button 
+                  key={category} 
+                  variant={selectedCategory === category ? "default" : "outline"} 
+                  onClick={() => setSelectedCategory(category)} 
+                  className={`${selectedCategory === category ? "btn-gold" : "hover:border-gold hover:text-gold"} transition-all duration-300`}
+                >
                   {category}
-                </Button>)}
+                </Button>
+              ))}
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPortfolio.map(item => <div key={item.id} className="portfolio-item group cursor-pointer animate-on-scroll" onClick={() => setLightboxImage(item.image)}>
+            {filteredPortfolio.map((item, index) => (
+              <div 
+                key={item.id} 
+                className={`portfolio-item group cursor-pointer hover-lift reveal-on-scroll stagger-${(index % 3) + 1}`} 
+                onClick={() => setLightboxImage(item.image)}
+              >
                 <div className="relative overflow-hidden rounded-lg shadow-lg">
                   <picture>
                     <source media="(min-width: 768px)" srcSet={item.image} />
-                    <img src={mobileVariant[item.image] || item.image} alt={item.title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                    <img 
+                      src={mobileVariant[item.image] || item.image} 
+                      alt={item.title} 
+                      className="w-full h-64 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110" 
+                      loading="lazy" 
+                    />
                   </picture>
-                  <div className="portfolio-overlay">
-                    <div className="text-white text-center">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
                       <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                      <Badge variant="secondary" className="bg-gold text-primary">{item.category}</Badge>
+                      <Badge variant="secondary" className="bg-gold text-primary mb-3">{item.category}</Badge>
+                      <div className="flex items-center space-x-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">
+                        <Eye className="w-4 h-4" />
+                        <span>Click to view</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>)}
+              </div>
+            ))}
           </div>
 
           {/* More Portfolio Button */}
-          <div className="text-center mt-12 animate-on-scroll">
+          <div className="text-center mt-12 reveal-on-scroll">
             <Link to="/portfolio">
-              <Button variant="outline" size="lg" className="border-gold text-gold hover:bg-gold hover:text-primary">
+              <Button variant="outline" size="lg" className="border-gold text-gold hover:bg-gold hover:text-primary hover:scale-105 transition-all duration-300">
+                <ArrowRight className="w-5 h-5 mr-2" />
                 View Complete Portfolio
               </Button>
             </Link>
@@ -439,7 +654,7 @@ const Index = () => {
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-on-scroll">
+          <div className="text-center mb-16 reveal-on-scroll">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">What Our Clients Say</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Don't just take our word for it - hear from our satisfied clients
