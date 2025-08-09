@@ -9,6 +9,7 @@ const StickyNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // Check if we're on a page with light background from the start (exclude portfolio as it has dark background)
   const isOnLightPage = location.pathname !== '/' && location.pathname !== '/portfolio';
@@ -28,6 +29,14 @@ const StickyNav = () => {
       setActiveSection('home');
     }
   }, [location.pathname]);
+
+  // Track viewport width for mobile-specific nav behavior
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,12 +74,14 @@ const StickyNav = () => {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-background/95 backdrop-blur-sm border-b border-border shadow-sm' : 'bg-transparent'
+      isScrolled
+        ? 'bg-background/95 backdrop-blur-sm border-b border-border shadow-sm'
+        : 'bg-background/85 backdrop-blur-sm border-b border-border shadow-sm md:bg-transparent md:backdrop-blur-0 md:border-b-0 md:shadow-none'
     }`}>
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className={`text-2xl font-bold transition-colors duration-300 ${
-            isScrolled || isOnLightPage ? 'text-primary' : 'text-white'
+            (isScrolled || isOnLightPage || isMobile) ? 'text-primary' : 'text-white'
           }`}>
             <span className="font-serif">PixelCraft</span>
             <span className="text-gold ml-2">Studio</span>
@@ -128,7 +139,7 @@ const StickyNav = () => {
             <Button 
             variant="ghost" 
             size="sm" 
-            className={`md:hidden ${isScrolled || isOnLightPage ? 'text-primary' : 'text-white'}`}
+            className={`md:hidden ${(isScrolled || isOnLightPage || isMobile) ? 'text-primary' : 'text-white'}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -160,7 +171,7 @@ const StickyNav = () => {
                     to={linkTo}
                     onClick={handleClick}
                     className={`transition-colors duration-300 ${
-                      isScrolled || isOnLightPage
+                      (isScrolled || isOnLightPage || isMobile)
                         ? isActive 
                           ? 'text-gold font-semibold' 
                           : 'text-primary hover:text-gold'
